@@ -1,5 +1,7 @@
 package net.zerobone.leftist;
 
+import java.util.PriorityQueue;
+
 public class Leftist<T extends Comparable<T>> {
 
     private LeftistNode<T> root;
@@ -23,6 +25,14 @@ public class Leftist<T extends Comparable<T>> {
     public void merge(Leftist<T> q) {
 
         root = mergeWith(root, q.root);
+
+    }
+
+    public void merge(PriorityQueue<T> q) {
+
+        for (T el : q) {
+            insert(el);
+        }
 
     }
 

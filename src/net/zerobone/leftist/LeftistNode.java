@@ -4,19 +4,29 @@ public class LeftistNode<T extends Comparable<T>> {
 
     public T element;
 
+    private int rank;
+
     public LeftistNode<T> left;
 
     public LeftistNode<T> right;
 
     public LeftistNode(T element) {
         this.element = element;
+        rank = 1;
+        this.left = null;
+        this.right = null;
     }
 
     public LeftistNode(LeftistNode<T> left, T element, LeftistNode<T> right) {
 
         this.element = element;
 
-        if (rankOf(left) >= rankOf(right)) {
+        int leftRank = rankOf(left);
+        int rightRank = rankOf(right);
+
+        rank = 1 + Math.min(leftRank, rightRank);
+
+        if (leftRank >= rightRank) {
             this.left = left;
             this.right = right;
         }
@@ -33,20 +43,12 @@ public class LeftistNode<T extends Comparable<T>> {
             return 0;
         }
 
-        return node.rank();
+        return node.getRank();
 
     }
 
-    public int rank() {
-
-        int leftRank = left == null ? 0 : left.rank();
-
-        int rightRank = right == null ? 0 : right.rank();
-
-        assert leftRank >= rightRank;
-
-        return Math.min(leftRank, rightRank) + 1;
-
+    public int getRank() {
+        return rank;
     }
 
 }
